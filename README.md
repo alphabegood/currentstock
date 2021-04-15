@@ -1,7 +1,7 @@
 # currentstock
 Return the current stock levels for a given SKU by combining the data in these two files. Writtin in typescript 
 
-#Get started
+# Get started
 
 Download or clone the project
 
