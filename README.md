@@ -15,6 +15,14 @@ From the currentstock folder run the packages installation.
 $ npm install
 ```
 
+# Run tests
+
+Run the command
+
+```
+npm run test 
+```
+
 
 
 

@@ -13,14 +13,14 @@ interface SkuItem {
 }
 
 
-function getCurrentStock(sku: string): Promise<{ sku: string, qty: number }> {
+export function getCurrentStock(sku: string): Promise<{ sku: string, qty: number }> {
 
     return new Promise<{ sku: string, qty: number }>((resolve: any, reject: any) => {
 
-        Promise.all([getInitialStock(sku), getTranscactions(sku)]).then(value => {
+        Promise.all([getInitialStock(sku), getTranscactions(sku)]).then(values => {
 
-            const startingStock = value[0];
-            const transactionsQty = value[1]; 
+            const startingStock = values[0];
+            const transactionsQty = values[1]; 
             
             const qty = startingStock > transactionsQty ? startingStock - transactionsQty : 0; 
 
@@ -28,7 +28,7 @@ function getCurrentStock(sku: string): Promise<{ sku: string, qty: number }> {
 
             resolve(currentStock);
 
-        }).catch(error => console.error(error));
+        }).catch(error => reject(error));
 
 
     });
@@ -37,7 +37,7 @@ function getCurrentStock(sku: string): Promise<{ sku: string, qty: number }> {
 
 }
 
-function getTranscactions(sku: string): Promise<number> {
+export function getTranscactions(sku: string): Promise<number> {
     return new Promise<number>((resolve: any, reject: any) => {
 
         try {
@@ -73,7 +73,7 @@ function getTranscactions(sku: string): Promise<number> {
 
         }
         catch (error) {
-
+        
             reject(error);
 
 
@@ -81,14 +81,13 @@ function getTranscactions(sku: string): Promise<number> {
     });
 }
 
-function getInitialStock(sku: string): Promise<number> {
+export function getInitialStock(sku: string): Promise<number> {
 
     return new Promise<number>((resolve: any, reject: any) => {
 
         try {
 
             const skuItems: SkuItem[] = Stock;
-            //console.log(warehouse);
 
             if (!Array.isArray(skuItems)) {
                 throw `The stock source is not valid.`;
@@ -99,7 +98,7 @@ function getInitialStock(sku: string): Promise<number> {
             });
 
             if (filteredStockItems.length == 0) {
-                //Based on the note the starting quntity is 0;
+                //Based on the note the starting quantity is 0;
                 resolve(0);
             }
 
@@ -124,21 +123,3 @@ function getInitialStock(sku: string): Promise<number> {
 }
 
 
-
-//non-existing sku
-let sku = 'alpha/35/91';
-
-getCurrentStock(sku).then(currentStock => {
-    console.log(currentStock);
-}).catch(error => {
-    console.error(error);
-});
-
-//Valid sku
-sku = 'HGG795032/35/91';
-
-getCurrentStock(sku).then(currentStock => {
-    console.log(currentStock);
-}).catch(error => {
-    console.error(error);
-});

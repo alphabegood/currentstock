@@ -4,11 +4,15 @@
   "description": "current stock levels for a given SKU by combining the data in these two files.",
   "main": "index.ts",
   "scripts": {
-    "test": "ts-node index.ts"
+    "test": "ts-node node_modules/jasmine/bin/jasmine --config=jasmine.json",
+    "coverage": "nyc -r text -e .ts -x \"tests/*.test.ts\" npm run test"
   },
   "author": "Alpha BA",
   "license": "ISC",
   "devDependencies": {
+    "@types/jasmine": "^3.6.9",
+    "jasmine": "^3.7.0",
+    "nyc": "^15.1.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.4"
   }
