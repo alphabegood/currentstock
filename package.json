@@ -1,0 +1,15 @@
+{
+  "name": "plttest",
+  "version": "1.0.0",
+  "description": "current stock levels for a given SKU by combining the data in these two files.",
+  "main": "index.ts",
+  "scripts": {
+    "test": "ts-node index.ts"
+  },
+  "author": "Alpha BA",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
+  }
+}
